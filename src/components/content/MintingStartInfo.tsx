@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { getStartBlockNumber } from 'src/contracts/contract';
+import { getStartBlockNumber } from 'contracts/contract';
 
 export default function MintingStartInfo() {
   const [startAt, setStartAt] = useState<string>('');

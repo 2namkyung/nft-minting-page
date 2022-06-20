@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import walletState, { WalletInfo } from 'src/recoil/wallet';
+import walletState, { WalletInfo } from 'recoil/wallet';
 
 function Wallet() {
   const [wallet, setWallet] = useRecoilState<WalletInfo>(walletState);
@@ -62,8 +62,9 @@ function Wallet() {
         type="button"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
         onClick={connect}
+        data-testid="wallet_button"
       >
-        {wallet.address === null || '' ? 'Connect Wallet' : 'Connected'}
+        {wallet.address === null || '' ? 'Connect Wallet' : wallet.address}
       </button>
     </div>
   );

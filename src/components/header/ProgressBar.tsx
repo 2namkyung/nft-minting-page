@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getRemainingNFT } from 'src/contracts/contract';
+import { getRemainingNFT } from 'contracts/contract';
 
 function ProgressBar() {
   const [percent, setPercent] = useState<string>('100%');

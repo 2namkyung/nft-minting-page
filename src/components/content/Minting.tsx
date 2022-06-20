@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Ether from '@img/ethereum-eth-logo.svg';
-import { getMintPrice, minting } from 'src/contracts/contract';
+import { getMintPrice, minting } from 'contracts/contract';
 import { ethers } from 'ethers';
 
 function Minting() {
