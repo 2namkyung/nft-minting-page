@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import Wallet from './Wallet';
@@ -57,8 +57,6 @@ describe('<Wallet />', () => {
     );
 
     const button = screen.getByRole('button');
-    fireEvent.click(button);
-
     expect(button).toBeInTheDocument();
 
     await act(async () => {

@@ -5,12 +5,6 @@ const INFURA_URL = import.meta.env.VITE_INFURA_URL;
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 const PRIVATE_KEY = import.meta.env.VITE_METAMASK_KEY;
 
-const provider: ethers.providers.Web3Provider =
-  new ethers.providers.Web3Provider(window.ethereum);
-
-const signer = provider.getSigner();
-const contract = new ethers.Contract(CONTRACT_ADDRESS, Contract.abi, signer);
-
 const rpcProvider: ethers.providers.JsonRpcProvider =
   new ethers.providers.JsonRpcProvider(INFURA_URL);
 
@@ -22,7 +16,28 @@ const rpcCallContract = new ethers.Contract(
   wallet,
 );
 
+function getProviderAndSigner() {
+  const { ethereum } = window;
+
+  let provider;
+  let signer;
+
+  if (ethereum) {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer = provider.getSigner();
+  }
+
+  return { provider, signer };
+}
+
+function getContract() {
+  const { signer } = getProviderAndSigner();
+
+  return new ethers.Contract(CONTRACT_ADDRESS, Contract.abi, signer);
+}
+
 export async function minting(requestCount: number, value: string) {
+  const contract = getContract();
   try {
     await contract.createToken(requestCount, {
       value: ethers.utils.parseEther(value),
@@ -32,25 +47,28 @@ export async function minting(requestCount: number, value: string) {
   }
 }
 
-export async function getMintPrice() {
+export async function getMintPrice(): Promise<string> {
   try {
-    return await rpcCallContract.getMintPrice();
-  } catch (error) {
-    return error;
+    const wei = await rpcCallContract.getMintPrice();
+    return ethers.utils.formatEther(wei);
+  } catch (error: any) {
+    return error.message;
   }
 }
 
-export async function getStartBlockNumber() {
+export async function getStartBlockNumber(): Promise<string> {
   try {
-    return await rpcCallContract.getStartBlockNumber();
-  } catch (error) {
-    return error;
+    const startBlockNumber = await rpcCallContract.getStartBlockNumber();
+    return startBlockNumber.toString();
+  } catch (error: any) {
+    return error.message;
   }
 }
 
 export async function getRemainingNFT() {
   try {
-    return await rpcCallContract.totalArray();
+    const remainingNftCount = await rpcCallContract.totalArray();
+    return remainingNftCount.toNumber();
   } catch (error) {
     return error;
   }

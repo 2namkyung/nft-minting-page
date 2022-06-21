@@ -6,10 +6,13 @@ function ProgressBar() {
 
   useEffect(() => {
     (async () => {
-      const remainCount = await getRemainingNFT();
+      const remainCount: number = await getRemainingNFT();
+      if (typeof remainCount !== 'number') {
+        setPercent('0%');
+        return;
+      }
 
-      const remain = Number(remainCount) / 100;
-      setPercent(`${remain * 100}%`);
+      setPercent(`${(remainCount / 100) * 100}%`);
     })();
   }, []);
 

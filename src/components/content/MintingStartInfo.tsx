@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 import { getStartBlockNumber } from 'contracts/contract';
+import Loading from 'components/Loading';
 
 export default function MintingStartInfo() {
   const [startAt, setStartAt] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
-      const startBlockNumber = await getStartBlockNumber();
-
-      setStartAt(startBlockNumber.toString());
+      const startBlockNumber: string = await getStartBlockNumber();
+      setStartAt(startBlockNumber);
+      setLoading(false);
     })();
   }, []);
 
@@ -31,7 +33,11 @@ export default function MintingStartInfo() {
             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
           />
         </svg>
-        <div className="text-xl font-extrabold"># {startAt}</div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="text-xl font-extrabold"># {startAt}</div>
+        )}
       </div>
       <div className="text-xs text-center text-gray-400 mb-4">
         정확한 현재 블록 정보는 아래 링크를 참고 바랍니다.

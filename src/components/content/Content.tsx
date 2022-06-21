@@ -1,4 +1,5 @@
 import React from 'react';
+
 import BlockInfo from './BlockInfo';
 import Minting from './Minting';
 
