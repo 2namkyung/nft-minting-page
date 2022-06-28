@@ -15,6 +15,16 @@ export default function MintingStartInfo() {
     })();
   }, []);
 
+  function opensea() {
+    window.open('https://testnets.opensea.io/collection/pfp-3uauofckhx');
+  }
+
+  function etherscan() {
+    window.open(
+      'https://rinkeby.etherscan.io/address/0x8172aF0CD32A9b781abF5292833a83773B43B301',
+    );
+  }
+
   return (
     <>
       <div className="text-violet-300 mb-2">MINTING STARTS AT</div>
@@ -48,14 +58,16 @@ export default function MintingStartInfo() {
         <button
           type="button"
           className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-lg mr-2"
+          onClick={etherscan}
         >
           Etherscan
         </button>
         <button
           type="button"
           className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-lg"
+          onClick={opensea}
         >
-          Rinkeby
+          OPENSEA
         </button>
       </div>
     </>
