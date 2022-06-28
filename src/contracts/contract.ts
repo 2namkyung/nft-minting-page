@@ -3,17 +3,14 @@ import Contract from './NFTEvent.json';
 
 const INFURA_URL = import.meta.env.VITE_INFURA_URL;
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
-const PRIVATE_KEY = import.meta.env.VITE_METAMASK_KEY;
 
 const rpcProvider: ethers.providers.JsonRpcProvider =
   new ethers.providers.JsonRpcProvider(INFURA_URL);
 
-const wallet = new ethers.Wallet(PRIVATE_KEY, rpcProvider);
-
-const rpcCallContract = new ethers.Contract(
+const callContract = new ethers.Contract(
   CONTRACT_ADDRESS,
   Contract.abi,
-  wallet,
+  rpcProvider,
 );
 
 function getProviderAndSigner() {
@@ -49,7 +46,7 @@ export async function minting(requestCount: number, value: string) {
 
 export async function getMintPrice(): Promise<string> {
   try {
-    const wei = await rpcCallContract.getMintPrice();
+    const wei = await callContract.getMintPrice();
     return ethers.utils.formatEther(wei);
   } catch (error: any) {
     return error.message;
@@ -58,7 +55,7 @@ export async function getMintPrice(): Promise<string> {
 
 export async function getStartBlockNumber(): Promise<string> {
   try {
-    const startBlockNumber = await rpcCallContract.getStartBlockNumber();
+    const startBlockNumber = await callContract.getStartBlockNumber();
     return startBlockNumber.toString();
   } catch (error: any) {
     return error.message;
@@ -67,7 +64,7 @@ export async function getStartBlockNumber(): Promise<string> {
 
 export async function getRemainingNFT() {
   try {
-    const remainingNftCount = await rpcCallContract.totalArray();
+    const remainingNftCount = await callContract.totalArray();
     return remainingNftCount.toNumber();
   } catch (error) {
     return error;
