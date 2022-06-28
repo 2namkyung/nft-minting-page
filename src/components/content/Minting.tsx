@@ -1,26 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Ether from '@img/ethereum-eth-logo.svg';
-import { getMintPrice, minting } from 'contracts/contract';
-import Loading from 'components/Loading';
+import { minting } from 'contracts/erc721A';
 
 function Minting() {
-  const [price, setPrice] = useState<string>('');
   const [amount, setAmount] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    (async () => {
-      const mintPrice: string = await getMintPrice();
-      setPrice(mintPrice);
-      setLoading(false);
-    })();
-  }, []);
 
   async function mint() {
-    const totalPrice = amount * Number(price);
-    console.log(totalPrice);
-    await minting(amount, totalPrice.toString());
+    await minting(amount);
   }
 
   const increase = useCallback(() => {
@@ -48,11 +35,7 @@ function Minting() {
       <div className="text-violet-400 font-extrabold mb-2">PRICE</div>
       <div className="flex w-full mb-4">
         <img className="h-8 mr-2" src={Ether} alt="" />
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="text-2xl font-extrabold">{price} ETH</div>
-        )}
+        <div className="text-2xl font-extrabold">FREE ETH</div>
       </div>
       <div className="lg:flex mb-14">
         <div className="flex justify-between p-2 lg:w-1/2">
@@ -88,7 +71,6 @@ function Minting() {
         <button
           type="button"
           className="w-full bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-lg disabled:bg-gray-500"
-          disabled={loading}
           onClick={mint}
         >
           Minting

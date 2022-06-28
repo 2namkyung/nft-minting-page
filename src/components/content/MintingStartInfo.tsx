@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { getStartBlockNumber } from 'contracts/contract';
 import Loading from 'components/Loading';
+import { getMintStartBlock } from 'contracts/erc721A';
 
 export default function MintingStartInfo() {
   const [startAt, setStartAt] = useState<string>('');
@@ -9,7 +9,7 @@ export default function MintingStartInfo() {
 
   useEffect(() => {
     (async () => {
-      const startBlockNumber: string = await getStartBlockNumber();
+      const startBlockNumber: string = await getMintStartBlock();
       setStartAt(startBlockNumber);
       setLoading(false);
     })();
