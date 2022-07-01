@@ -8,7 +8,9 @@ function Header() {
       <div className="flex justify-end">
         <RainbowWallet />
       </div>
-      <div className="flex justify-end mt-5 mb-10">{/* <ProgressBar /> */}</div>
+      <div className="flex justify-end mt-5 mb-10">
+        <ProgressBar />
+      </div>
     </>
   );
 }
