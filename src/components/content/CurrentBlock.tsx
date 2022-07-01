@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
 import Loading from 'components/Loading';
 
-import API, { graphqlOperation } from '@aws-amplify/api';
-import Amplify from '@aws-amplify/core';
-import amplify from 'amplify';
+const INFURA_WS_URL = import.meta.env.VITE_INFURA_WS;
 import { getBlockNumber } from 'contracts/erc721A';
 
-Amplify.configure(amplify.config);
+const wsProvider: ethers.providers.WebSocketProvider =
+  new ethers.providers.WebSocketProvider(INFURA_WS_URL);
 
 export default function CurrentBlock() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,25 +23,14 @@ export default function CurrentBlock() {
   }, []);
 
   useEffect(() => {
-    const { subscribeDoc, channel } = amplify;
-
-    const subscription: any = API.graphql(
-      graphqlOperation(subscribeDoc, { name: channel }),
-    );
-
-    const sub = subscription.subscribe({
-      next: (payload: any) => {
-        try {
-          const { blockNumber } = JSON.parse(payload.value.data.subscribe.data);
-          setStartBlockNumber(blockNumber);
-        } catch (error) {
-          return error;
-        }
-      },
+    wsProvider.on('block', (number) => {
+      setStartBlockNumber(number);
     });
 
     return () => {
-      sub.unsubscribe();
+      wsProvider.off('block', () => {
+        setLoading(true);
+      });
     };
   }, [startBlockNumber]);
 
