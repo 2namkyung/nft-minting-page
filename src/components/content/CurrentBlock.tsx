@@ -1,35 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import Loading from 'components/Loading';
 
-const INFURA_WS_URL = import.meta.env.VITE_INFURA_WS;
+import API, { graphqlOperation } from '@aws-amplify/api';
+import Amplify from '@aws-amplify/core';
+import amplify from 'amplify';
+import { getBlockNumber } from 'contracts/erc721A';
 
-const wsProvider: ethers.providers.WebSocketProvider =
-  new ethers.providers.WebSocketProvider(INFURA_WS_URL);
+Amplify.configure(amplify.config);
 
 export default function CurrentBlock() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [blockNumber, setBlockNumber] = useState<number>(0);
+  const [startBlockNumber, setStartBlockNumber] = useState<number>(0);
 
   useEffect(() => {
     async function getBlock() {
-      const number = await wsProvider.getBlockNumber();
-      setBlockNumber(number);
+      const number = await getBlockNumber();
+      setStartBlockNumber(number);
       setLoading(false);
     }
 
-    wsProvider.on('block', (number) => {
-      setBlockNumber(number);
+    getBlock();
+  }, []);
+
+  useEffect(() => {
+    const { subscribeDoc, channel } = amplify;
+
+    const subscription: any = API.graphql(
+      graphqlOperation(subscribeDoc, { name: channel }),
+    );
+
+    const sub = subscription.subscribe({
+      next: (payload: any) => {
+        try {
+          const { blockNumber } = JSON.parse(payload.value.data.subscribe.data);
+          setStartBlockNumber(blockNumber);
+        } catch (error) {
+          return error;
+        }
+      },
     });
 
-    getBlock();
-
     return () => {
-      wsProvider.off('block', () => {
-        setLoading(true);
-      });
+      sub.unsubscribe();
     };
-  }, []);
+  }, [startBlockNumber]);
 
   return (
     <>
@@ -53,7 +67,7 @@ export default function CurrentBlock() {
           <Loading />
         ) : (
           <div className="text-xl text-violet-400 font-extrabold animate-pulse">
-            # {blockNumber}
+            # {startBlockNumber}
           </div>
         )}
       </div>

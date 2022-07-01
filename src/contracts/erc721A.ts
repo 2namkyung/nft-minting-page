@@ -27,6 +27,14 @@ function getContract() {
   return new ethers.Contract(CONTRACT_ADDRESS, Contract.abi, signer);
 }
 
+export async function getBlockNumber() {
+  try {
+    return await rpcProvider.getBlockNumber();
+  } catch (e) {
+    return 0;
+  }
+}
+
 export async function getMintStartBlock() {
   const contract = new ethers.Contract(
     CONTRACT_ADDRESS,
