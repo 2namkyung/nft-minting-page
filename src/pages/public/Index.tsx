@@ -1,15 +1,13 @@
-import React from 'react';
+import MintingInfo from './components/MintingInfo';
+import Minting from './components/Minting';
 
-import BlockInfo from './BlockInfo';
-import Minting from './Minting';
-
-function Content() {
+function Index() {
   return (
     <div className="w-full flex flex-wrap border rounded border-violet-600 h-auto p-5 shadow-lg shadow-violet-500/50">
-      <BlockInfo />
+      <MintingInfo />
       <Minting />
     </div>
   );
 }
 
-export default Content;
+export default Index;
