@@ -15,10 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src",
-    "paths": {
-      "@img/*": ["../assets/img/*"]
-    }
+    "baseUrl": "./src"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

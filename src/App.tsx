@@ -1,6 +1,7 @@
-import Public from './pages/public/Index';
-import Header from './components/header/Header';
 import { Route, Routes } from 'react-router-dom';
+import Public from './pages/public/Public';
+import Private from 'pages/private/Private';
+import Header from './components/header/Header';
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Public />} />
-        <Route path="/private" element={<></>} />
+        <Route path="/private" element={<Private />} />
       </Routes>
     </section>
   );

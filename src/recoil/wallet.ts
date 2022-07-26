@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 export type WalletInfo = {
-  address: string | null;
+  address: string;
   isUnlocked: boolean;
   chainId: string;
 };

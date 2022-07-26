@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Ether from '@img/ethereum-eth-logo.svg';
+import Ether from '/img/ethereum-eth-logo.svg';
 import { minting } from 'contracts/erc721A';
 
 function Minting() {

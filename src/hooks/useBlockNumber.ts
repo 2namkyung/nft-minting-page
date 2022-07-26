@@ -18,7 +18,9 @@ const useBlockNumber = () => {
     });
 
     return () => {
-      wsProvider.off('block', () => {});
+      wsProvider.off('block', () => {
+        console.log('off');
+      });
     };
   }, [blockNumber]);
 
