@@ -6,19 +6,19 @@ import { RecoilRoot } from 'recoil';
 import { WagmiConfig } from 'wagmi';
 import App from './App';
 import '@rainbow-me/rainbowkit/styles.css';
-import './styles/index.css';
 import { BrowserRouter } from 'react-router-dom';
 
+import './styles/index.css';
+import './styles/transition.css';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </RecoilRoot>
-  </React.StrictMode>,
+  <RecoilRoot>
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider chains={chains}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </RainbowKitProvider>
+    </WagmiConfig>
+  </RecoilRoot>,
 );

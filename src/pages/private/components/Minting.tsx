@@ -1,4 +1,5 @@
 import CheckWhitelist from 'components/CheckWhitelist';
+import { privateMint } from 'contracts/contract';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import walletState from 'recoil/wallet';
@@ -16,6 +17,11 @@ function Minting() {
       setIsWhitelist(check);
     }
   }, [wallet]);
+
+  async function mint() {
+    console.log(wallet.address);
+    await privateMint(wallet.address);
+  }
 
   return (
     <div className="w-80 m-auto lg:w-3/5 lg:m-0 pt-14 lg:px-14">
@@ -44,6 +50,7 @@ function Minting() {
           type="button"
           className="w-full bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-lg disabled:bg-gray-500"
           disabled={!isWhitelist}
+          onClick={mint}
         >
           Minting
         </button>

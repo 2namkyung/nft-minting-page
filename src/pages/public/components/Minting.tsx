@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Ether from '/img/ethereum-eth-logo.svg';
-import { minting } from 'contracts/erc721A';
+import { publicMint } from 'contracts/contract';
 
 function Minting() {
   const [amount, setAmount] = useState<number>(1);
 
   async function mint() {
-    await minting(amount);
+    await publicMint(amount);
   }
 
   const increase = useCallback(() => {
     setAmount((prevAmount: number) => {
-      if (prevAmount >= 5) {
+      if (prevAmount >= 3) {
         return prevAmount;
       }
 
@@ -35,12 +35,12 @@ function Minting() {
       <div className="text-violet-400 font-extrabold mb-2">PRICE</div>
       <div className="flex w-full mb-4">
         <img className="h-8 mr-2" src={Ether} alt="" />
-        <div className="text-2xl font-extrabold">FREE ETH</div>
+        <div className="text-2xl font-extrabold">0.008 ETH</div>
       </div>
       <div className="lg:flex mb-14">
         <div className="flex justify-between p-2 lg:w-1/2">
           <div className="text-violet-400 font-extrabold">Per Transaction</div>
-          <div className="font-extrabold">5 개</div>
+          <div className="font-extrabold">3 개</div>
         </div>
         <div className="flex justify-between p-2 lg:w-1/2">
           <div className="text-violet-400 font-extrabold">Per Wallet</div>

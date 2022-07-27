@@ -1,6 +1,5 @@
-import { getBlockNumber } from 'contracts/erc721A';
 import React, { useEffect, useState } from 'react';
-import { wsProvider } from 'utils/ethers';
+import { getBlockNumber, wsProvider } from 'utils/ethers';
 
 const useBlockNumber = () => {
   const [blockNumber, setBlockNumber] = useState<number>(0);

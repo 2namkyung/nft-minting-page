@@ -2,7 +2,7 @@ import BlockInfoHeader from 'components/BlockInfoHeader';
 import BlockInfoLink from 'components/BlockInfoLink';
 import CurrentBlock from 'components/CurrentBlock';
 import MintingStartAt from 'components/MintingStartAt';
-import { getStartBlockNumber } from 'contracts/contract';
+import { getMintStartBlock } from 'contracts/contract';
 import useBlockNumber from 'hooks/useBlockNumber';
 import { useEffect, useState } from 'react';
 
@@ -13,8 +13,8 @@ function MintingInfo() {
 
   useEffect(() => {
     (async () => {
-      const number = await getStartBlockNumber();
-      setStartBlockNumber(Number(number));
+      const startBlock = await getMintStartBlock();
+      setStartBlockNumber(Number(startBlock));
     })();
   }, []);
 
@@ -24,8 +24,8 @@ function MintingInfo() {
       <CurrentBlock blockNumber={blockNumber} />
       <MintingStartAt startBlockNumber={startBlockNumber} />
       <BlockInfoLink
-        openseaLink="https://testnets.opensea.io/collection/pfp-3uauofckhx"
-        etherscanLink="https://rinkeby.etherscan.io/address/0x8172aF0CD32A9b781abF5292833a83773B43B301"
+        openseaLink="https://testnets.opensea.io/collection/fs-test"
+        etherscanLink="https://rinkeby.etherscan.io/address/0xC7E7CA420BA1acada6Fc46fDAb1988273530B081"
       />
     </div>
   );

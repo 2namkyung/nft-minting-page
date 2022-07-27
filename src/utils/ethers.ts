@@ -8,3 +8,11 @@ export const wsProvider: ethers.providers.WebSocketProvider =
 
 export const rpcProvider: ethers.providers.JsonRpcProvider =
   new ethers.providers.JsonRpcProvider(INFURA_URL);
+
+export async function getBlockNumber(): Promise<number> {
+  try {
+    return await rpcProvider.getBlockNumber();
+  } catch (e) {
+    return 0;
+  }
+}

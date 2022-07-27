@@ -1,8 +1,9 @@
 import { ethers } from 'ethers';
-import Contract from './NFTEvent.json';
+import { getMerkleProof } from 'utils/checkWhitelist';
+import Contract from './contract.json';
 
 const INFURA_URL = import.meta.env.VITE_INFURA_URL;
-const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
+const CONTRACT_ADDRESS = Contract.contractAddress;
 
 const rpcProvider: ethers.providers.JsonRpcProvider =
   new ethers.providers.JsonRpcProvider(INFURA_URL);
@@ -33,39 +34,41 @@ function getContract() {
   return new ethers.Contract(CONTRACT_ADDRESS, Contract.abi, signer);
 }
 
-export async function minting(requestCount: number, value: string) {
+export async function privateMint(address: string) {
+  const merkleProof = getMerkleProof(address);
+
   const contract = getContract();
+
   try {
-    await contract.createToken(requestCount, {
-      value: ethers.utils.parseEther(value),
+    await contract.privateMint(merkleProof);
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function publicMint(requestCount: number) {
+  const contract = getContract();
+
+  try {
+    await contract.publicMint(requestCount, {
+      value: ethers.utils.parseEther((requestCount * 0.008).toString()),
     });
   } catch (error) {
     return error;
   }
 }
 
-export async function getMintPrice(): Promise<string> {
+export async function getMintStartBlock() {
   try {
-    const wei = await callContract.getMintPrice();
-    return ethers.utils.formatEther(wei);
-  } catch (error: any) {
-    return error.message;
+    return await callContract.mintStartBlock();
+  } catch (error) {
+    return error;
   }
 }
 
-export async function getStartBlockNumber(): Promise<string> {
+export async function getPublicMintPrice() {
   try {
-    const startBlockNumber = await callContract.getStartBlockNumber();
-    return startBlockNumber.toString();
-  } catch (error: any) {
-    return error.message;
-  }
-}
-
-export async function getRemainingNFT() {
-  try {
-    const remainingNftCount = await callContract.totalArray();
-    return remainingNftCount.toNumber();
+    return await callContract.mintPrice();
   } catch (error) {
     return error;
   }
