@@ -24,7 +24,7 @@ function Wallet() {
     if (ethereum) {
       ethereum.on('accountsChanged', (accounts: Array<string>) => {
         if (accounts.length === 0) {
-          setWallet({ address: null, chainId: '', isUnlocked: false });
+          setWallet({ address: '', chainId: '', isUnlocked: false });
           return;
         }
 

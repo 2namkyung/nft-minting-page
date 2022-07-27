@@ -1,20 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getRemainingNFT } from 'contracts/contract';
+import { useState } from 'react';
 
 function ProgressBar() {
   const [percent, setPercent] = useState<string>('100%');
-
-  useEffect(() => {
-    (async () => {
-      const remainCount: number = await getRemainingNFT();
-      if (typeof remainCount !== 'number') {
-        setPercent('0%');
-        return;
-      }
-
-      setPercent(`${(remainCount / 100) * 100}%`);
-    })();
-  }, []);
 
   return (
     <div className="w-full lg:w-1/3 bg-gray-200 rounded-full dark:bg-gray-700">
