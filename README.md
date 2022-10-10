@@ -36,3 +36,7 @@ VITE_CONTRACT_ADDRESS =
 VITE_METAMASK_KEY =
 INFURA_API_KEY =
 ```
+
+## Check
+
+- need to change rinkeby to gorli
