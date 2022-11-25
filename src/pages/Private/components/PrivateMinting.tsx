@@ -6,7 +6,7 @@ import walletState from 'recoil/wallet';
 import checkWhitelist from 'utils/checkWhitelist';
 import Ether from '/img/ethereum-eth-logo.svg';
 
-function Minting() {
+function PrivateMinting() {
   const wallet = useRecoilValue(walletState);
 
   const [isWhitelist, setIsWhitelist] = useState<boolean>(false);
@@ -59,4 +59,4 @@ function Minting() {
   );
 }
 
-export default Minting;
+export default PrivateMinting;

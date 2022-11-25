@@ -2,9 +2,10 @@ import BlockInfoHeader from 'components/BlockInfoHeader';
 import BlockInfoLink from 'components/BlockInfoLink';
 import CurrentBlock from 'components/CurrentBlock';
 import MintingStartAt from 'components/MintingStartAt';
+
 import useBlockNumber from 'hooks/useBlockNumber';
 
-const MintingInfo = () => {
+const PrivateMintingInfo = () => {
   const blockNumber = useBlockNumber();
 
   return (
@@ -14,10 +15,10 @@ const MintingInfo = () => {
       <MintingStartAt startBlockNumber={7777} />
       <BlockInfoLink
         openseaLink="https://testnets.opensea.io/collection/fs-test"
-        etherscanLink="https://rinkeby.etherscan.io/address/0xC7E7CA420BA1acada6Fc46fDAb1988273530B081"
+        etherscanLink="https://goerli.etherscan.io/address/0xC7E7CA420BA1acada6Fc46fDAb1988273530B081"
       />
     </div>
   );
 };
 
-export default MintingInfo;
+export default PrivateMintingInfo;

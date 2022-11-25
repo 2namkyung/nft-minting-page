@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import Ether from '/img/ethereum-eth-logo.svg';
 import { publicMint } from 'contracts/contract';
 
-function Minting() {
+function PublicMinting() {
   const [amount, setAmount] = useState<number>(1);
 
   async function mint() {
@@ -80,4 +80,4 @@ function Minting() {
   );
 }
 
-export default Minting;
+export default PublicMinting;

@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Public from 'pages/public/Public';
-import Private from 'pages/private/Private';
+import Public from 'pages/Public';
+import Private from 'pages/Private';
 import Header from 'components/header/Header';
 
 function App() {

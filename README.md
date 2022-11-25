@@ -39,4 +39,4 @@ INFURA_API_KEY =
 
 ## Check
 
-- need to change rinkeby to gorli
+- RINKEBY -> GEORLI

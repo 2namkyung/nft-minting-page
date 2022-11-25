@@ -9,8 +9,8 @@ import { publicProvider } from 'wagmi/providers/public';
 const infuraId = import.meta.env.VITE_INFURA_API_KEY;
 
 export const { chains, provider } = configureChains(
-  [chain.rinkeby, chain.mainnet],
-  [publicProvider(), infuraProvider({ infuraId })],
+  [chain.goerli, chain.mainnet],
+  [infuraProvider({ infuraId })],
 );
 
 export const { connectors } = getDefaultWallets({

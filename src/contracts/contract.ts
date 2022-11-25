@@ -58,7 +58,7 @@ export async function publicMint(requestCount: number) {
   }
 }
 
-export async function getMintStartBlock() {
+export async function getPublicMintStartBlock() {
   try {
     return await callContract.mintStartBlock();
   } catch (error) {
@@ -69,6 +69,14 @@ export async function getMintStartBlock() {
 export async function getPublicMintPrice() {
   try {
     return await callContract.mintPrice();
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getPublicMintLimitAmount() {
+  try {
+    return await callContract.mintLimitAmount();
   } catch (error) {
     return error;
   }
