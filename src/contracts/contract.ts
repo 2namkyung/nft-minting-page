@@ -51,7 +51,7 @@ export async function publicMint(requestCount: number) {
 
   try {
     await contract.publicMint(requestCount, {
-      value: ethers.utils.parseEther((requestCount * 0.008).toString()),
+      value: ethers.utils.parseEther((requestCount * 0.08).toString()),
     });
   } catch (error) {
     return error;
